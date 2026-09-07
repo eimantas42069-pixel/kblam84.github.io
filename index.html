@@ -1,123 +1,234 @@
 <!DOCTYPE html>
-<html>
+<html lang="lt">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#000000">
     <title>KBLAM84</title>
+    <meta name="description" content="KBLAM84 — Leader alaus butelio puslapis.">
+
+    <!-- A real German-style blackletter font, not Unicode lookalike letters. -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=UnifrakturMaguntia&display=swap" rel="stylesheet">
 
     <style>
-        body {
-            background: #000;
-            color: #ccc;
-            font-family: "Times New Roman", serif;
+        /* ==========================================================
+           KBLAM84 — CHANGE THESE SETTINGS
+
+           SPIN SPEED: time for ONE complete rotation.
+           2000ms = 2 seconds       (slow)
+           1000ms = 1 second
+            500ms = half a second   (2 turns per second)
+            200ms = 0.2 seconds     (5 turns per second)
+
+           Both LEFT bottles spin clockwise.
+           Both RIGHT bottles spin counterclockwise.
+           Change just the number below to experiment.
+           ========================================================== */
+        :root {
+            --spin-speed: 500ms;
+            --corner-bottle-height: 205px;
+            --main-bottle-height: 630px;
+            --title-size: 42px;
+            --subtitle-size: 22px; /* smaller Gothic welcome line */
+            --caption-size: 42px;
+        }
+
+        * { box-sizing: border-box; }
+
+        html, body {
             margin: 0;
-            padding: 40px 20px;
+            min-height: 100%;
+            background: #000;
+            color: #fff;
+            font-family: "Times New Roman", Times, serif;
         }
 
-        .page {
-            max-width: 700px;
-            margin: auto;
+        /* The whole first screen scales together on desktop.
+           At 1200px wide it matches the proportions of your Paint mockup. */
+        .stage {
+            position: relative;
+            width: min(100%, 1200px, calc(100svh * 1200 / 940));
+            aspect-ratio: 1200 / 940;
+            margin: 0 auto;
+            container-type: inline-size;
+            overflow: hidden;
         }
 
-        header {
+        .site-heading {
+            position: absolute;
+            top: 4.2%;
+            left: 0;
+            width: 100%;
             text-align: center;
-            margin-bottom: 50px;
         }
 
         h1 {
-            color: #fff;
-            font-size: 42px;
             margin: 0;
-            letter-spacing: 6px;
+            text-align: center;
+            font-size: min(var(--title-size), 3.5cqw);
+            font-weight: normal;
+            letter-spacing: .14em;
+            line-height: 1.1;
         }
 
         .subtitle {
-            color: #777;
-            font-size: 14px;
-            margin-top: 10px;
-        }
-
-        .box {
-            border: 1px solid #555;
-            padding: 25px;
-            margin-bottom: 30px;
-        }
-
-        h2 {
-            color: #fff;
-            font-size: 20px;
+            margin: 5px 0 0;
+            font-family: "UnifrakturMaguntia", "Times New Roman", serif;
+            font-size: min(var(--subtitle-size), 1.84cqw);
             font-weight: normal;
-            margin-top: 0;
+            line-height: 1.2;
+            letter-spacing: 0;
+            /* Modern y, but keep the rest of the historic blackletter. */
+            font-feature-settings: "cv03";
         }
 
-        a {
-            color: #aaa;
+        /* The big bottle NEVER spins. */
+        .main-bottle {
+            position: absolute;
+            top: 15.2%;
+            left: 50%;
+            transform: translateX(-50%);
+            display: block;
+            width: auto;
+            height: min(var(--main-bottle-height), 52.5cqw);
+            max-width: 36%;
+            object-fit: contain;
         }
 
-        a:hover {
-            color: #fff;
+        /* Each corner is a fixed SQUARE. The bottle rotates inside it.
+           This is what prevents the enormous corner bottles from before. */
+        .corner {
+            position: absolute;
+            width: min(calc(var(--corner-bottle-height) * 1.12), 19cqw);
+            aspect-ratio: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            pointer-events: none;
+            user-select: none;
         }
 
-        .links {
-            line-height: 2;
+        .corner img {
+            display: block;
+            flex: none;
+            width: auto;
+            height: 89%;
+            max-width: 89%;
+            object-fit: contain;
+            transform-origin: center center;
+            -webkit-user-drag: none;
+            will-change: transform;
         }
 
-        .divider {
-            border: 0;
-            border-top: 1px solid #333;
-            margin: 40px 0;
+        .top-left     { top: 1.8%; left: 0; }
+        .top-right    { top: 1.8%; right: 0; }
+        .bottom-left  { bottom: 4.4%; left: 0; }
+        .bottom-right { bottom: 4.4%; right: 0; }
+
+        .clockwise {
+            animation: clockwise var(--spin-speed) linear infinite;
+        }
+        .counterclockwise {
+            animation: counterclockwise var(--spin-speed) linear infinite;
         }
 
-        footer {
+        @keyframes clockwise {
+            from { transform: rotate(0deg); }
+            to   { transform: rotate(360deg); }
+        }
+        @keyframes counterclockwise {
+            from { transform: rotate(0deg); }
+            to   { transform: rotate(-360deg); }
+        }
+
+        /* Your actual bottom text, not the old placeholders. */
+        .caption {
+            position: absolute;
+            top: 85.2%;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 62%;
             text-align: center;
-            color: #444;
-            font-size: 12px;
-            margin-top: 50px;
+            font-size: min(var(--caption-size), 3.5cqw);
+            font-weight: normal;
+            line-height: 1.15;
+        }
+        .caption p { margin: 0 0 .28em; }
+        .caption p:last-child { margin-bottom: 0; }
+
+        /* Phones: keep the same idea, but give it a taller canvas.
+           The corner bottles stay small and the text remains readable. */
+        @media (max-width: 600px) {
+            .stage {
+                width: 100%;
+                height: max(100svh, 620px);
+                aspect-ratio: auto;
+            }
+
+            .site-heading { top: 3%; }
+            h1 { font-size: clamp(27px, 8cqw, 38px); }
+            .subtitle {
+                font-size: clamp(13px, 4.2cqw, 20px);
+                margin-top: 4px;
+            }
+
+            .corner {
+                width: min(30cqw, 120px);
+            }
+            .top-left, .top-right { top: 1.5%; }
+            .bottom-left, .bottom-right { bottom: 2%; }
+
+            .main-bottle {
+                top: 17%;
+                height: min(52svh, 480px, 116cqw);
+                max-width: 43%;
+            }
+
+            .caption {
+                top: 72%;
+                width: 96%;
+                font-size: clamp(16px, 4.6cqw, 24px);
+                line-height: 1.25;
+            }
         }
     </style>
 </head>
-
 <body>
+    <main>
+        <section class="stage" aria-label="KBLAM84">
+            <header class="site-heading">
+                <h1>KBLAM84</h1>
+                <!-- Edit this ordinary text; the CSS supplies the Gothic font. -->
+                <p class="subtitle">welcome to my first blog!</p>
+            </header>
 
-<div class="page">
+            <!-- ONE image file, reused five times. -->
+            <!-- Left: clockwise. Right: counterclockwise. -->
+            <div class="corner top-left" aria-hidden="true">
+                <img class="clockwise" src="leader.png" alt="">
+            </div>
+            <div class="corner bottom-left" aria-hidden="true">
+                <img class="clockwise" src="leader.png" alt="">
+            </div>
+            <div class="corner top-right" aria-hidden="true">
+                <img class="counterclockwise" src="leader.png" alt="">
+            </div>
+            <div class="corner bottom-right" aria-hidden="true">
+                <img class="counterclockwise" src="leader.png" alt="">
+            </div>
 
-    <header>
-        <h1>KBLAM84</h1>
-        <div class="subtitle">PLACEHOLDER DAVE</div>
-    </header>
+            <img class="main-bottle" src="leader.png"
+                 alt="Leader alaus butelis, 1 litras, 5,0 %">
 
-    <div class="box">
-        <h2>PLACEHOLDER DAVE</h2>
+            <div class="caption">
+                <p>alus, kuris niekada neblogas!</p>
+                <p>rytojus nebus blogas!</p>
+            </div>
+        </section>
 
-        <p>PLACEHOLDER DAVE</p>
-        <p>PLACEHOLDER DAVE</p>
-        <p>PLACEHOLDER DAVE</p>
-    </div>
-
-    <hr class="divider">
-
-    <div class="box">
-        <h2>PLACEHOLDER DAVE</h2>
-
-        <div class="links">
-            <a href="#">PLACEHOLDER DAVE</a><br>
-            <a href="#">PLACEHOLDER DAVE</a><br>
-            <a href="#">PLACEHOLDER DAVE</a><br>
-            <a href="#">PLACEHOLDER DAVE</a>
-        </div>
-    </div>
-
-    <div class="box">
-        <h2>PLACEHOLDER DAVE</h2>
-
-        <p>PLACEHOLDER DAVE</p>
-        <p>PLACEHOLDER DAVE</p>
-    </div>
-
-    <footer>
-        PLACEHOLDER DAVE<br>
-        PLACEHOLDER DAVE
-    </footer>
-
-</div>
-
+        <!-- Future ads, links, other sections, etc. can go BELOW here. -->
+    </main>
 </body>
 </html>
