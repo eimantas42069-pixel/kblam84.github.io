@@ -1,6 +1,13 @@
 <!DOCTYPE html>
 <html lang="lt">
 <head>
+<!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-M7RWKDPN');</script>
+<!-- End Google Tag Manager -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="theme-color" content="#000000">
@@ -232,10 +239,80 @@
                 line-height: 1.25;
             }
         }
+
+        /* The original shrine fills the first viewport. The next section
+           starts immediately below it, so a short scroll reveals it. */
+        .first-screen {
+            min-height: 100svh;
+            display: flex;
+            align-items: flex-start;
+            justify-content: center;
+        }
+        .first-screen .stage {
+            flex: none;
+        }
+
+        /* ==========================================================
+           RESEARCH SECTION — CHANGE THESE SETTINGS IF YOU WANT
+           This is independent of the bottle shrine above.
+           ========================================================== */
+        :root {
+            --research-top-padding: 16px;
+            --donation-image-width: 480px;
+        }
+
+        .research-section {
+            width: 100%;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: var(--research-top-padding) 20px 70px;
+            text-align: center;
+            color: #fff;
+            font-family: "Times New Roman", Times, serif;
+        }
+        .research-section h2 {
+            margin: 0 0 20px;
+            font-size: clamp(27px, 4vw, 38px);
+            font-weight: normal;
+            line-height: 1.15;
+        }
+        .research-section .research-description {
+            margin: 0 0 20px;
+            font-size: clamp(18px, 2.3vw, 24px);
+            line-height: 1.3;
+        }
+        .research-section .research-instruction {
+            margin: 0 0 16px;
+            font-size: clamp(17px, 2.2vw, 23px);
+            font-weight: bold;
+            line-height: 1.3;
+        }
+        .donation-link {
+            display: inline-block;
+            max-width: 100%;
+            line-height: 0;
+            cursor: pointer;
+        }
+        .donation-link img {
+            display: block;
+            width: min(100%, var(--donation-image-width));
+            height: auto;
+            border: 0;
+        }
+        .donation-link:focus-visible {
+            outline: 2px solid #fff;
+            outline-offset: 5px;
+        }
+        .research-section .research-subject {
+            margin: 24px 0 0;
+            font-size: clamp(18px, 2.3vw, 24px);
+            line-height: 1.3;
+        }
     </style>
 </head>
 <body>
     <main>
+        <div class="first-screen">
         <section class="stage" aria-label="KBLAM84">
             <header class="site-heading">
                 <h1>KBLAM84</h1>
@@ -259,15 +336,46 @@
             </div>
 
             <img class="main-bottle" src="leader-alus-5-1l.png"
-                 alt="Leader alus 5% 1l – 1 litro plastikinio alaus butelio nuotrauka">
+                 alt="Leader alus 5% 1l – 1 litro plastikinio alaus butelio nuotrauka"
+                 width="289" height="969">
 
             <div class="caption">
                 <p>alus, kuris niekada neblogas!</p>
                 <p>rytojus nebus blogas!</p>
             </div>
         </section>
+        </div>
 
-        <!-- Future ads, links, other sections, etc. can go BELOW here. -->
+        <!-- ========================================================
+             SECTION 2 — THE VERY SERIOUS RESEARCH INSTITUTE
+             This appears after scrolling down from the original shrine.
+             Edit the text below just like ordinary text in a document.
+             To change the payment destination, edit the href on the link.
+             The image file is donation-button.png.
+             ======================================================== -->
+        <section class="research-section" id="research" aria-labelledby="research-heading">
+            <h2 id="research-heading">KBLAM84's Institute of Highly Questionable Research</h2>
+            <p class="research-description">Support the creator of this website with your tip.</p>
+            <p class="research-instruction">v fund the research by clicking the button below v</p>
+
+            <a class="donation-link"
+               href="https://www.paypal.com/paypalme/EimantasPuzinas"
+               target="_blank"
+               rel="noopener noreferrer"
+               aria-label="Fund the Research — support the creator through PayPal">
+                <img src="donation-button.png"
+                     alt="Fund the Research — click this bottle to support the creator through PayPal"
+                     width="896" height="389">
+            </a>
+
+            <p class="research-subject">Current research subject: Leader.</p>
+        </section>
+
+        <!-- Future fake ads, links, and other sections can go BELOW here. -->
     </main>
 </body>
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-M7RWKDPN"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
 </html>
